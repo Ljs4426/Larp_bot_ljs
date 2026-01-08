@@ -1,0 +1,10 @@
+{
+  "events": [
+    { "name": "Training", "ep_value": 3 },
+    { "name": "Patrol",   "ep_value": 2 },
+    { "name": "Tryout",   "ep_value": 5 },
+    { "name": "Defense",  "ep_value": 4 },
+    { "name": "Event",    "ep_value": 3 },
+    { "name": "Raid",     "ep_value": 4 }
+  ]
+}

@@ -78,6 +78,7 @@ async def root():
             "GET /users?page=1&per_page=50",
             "GET /users/leaderboard?limit=10",
             "GET /health",
+            "GET /",
         ],
     }
 

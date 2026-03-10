@@ -4,16 +4,12 @@ aiohttp>=3.9.0
 pytz>=2024.1
 APScheduler>=3.10.4
 aiofiles>=23.2.1
-# EP / log system
-pytesseract>=0.3.10      # requires system package: apt install tesseract-ocr
+pytesseract>=0.3.10
 Pillow>=10.4.0
 anthropic>=0.40.0
-# REST API
 fastapi>=0.111.0
 uvicorn>=0.29.0
-# Report generation
 python-docx>=1.1.0
 matplotlib>=3.9.0
-# Google Sheets sync (optional — only needed if ENABLE_SHEETS=true)
 gspread>=6.0.0
 google-auth>=2.0.0

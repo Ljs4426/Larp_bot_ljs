@@ -16,6 +16,11 @@ cd Larp_bot_ljs/discord-bot
 nano .env
 python3 main.py
 ```
+To edit your events use:
+
+```bash
+nano /workspaces/GAR_ARC_BOT/discord-bot/events_config.json
+```
 
 ## Commands
 

@@ -26,13 +26,13 @@ nano /workspaces/GAR_ARC_BOT/discord-bot/events_config.json
 
 | Command | Description |
 |---|---|
-| `/ep` | View or edit a member's EP |
+| `/ep edit` | Edit a member's EP |
 | `/log` | Log an event and award EP to attendees |
 | `/profile` | View your EP profile |
 | `/request-aid` | Submit a military aid request |
 | `/inactivity` | File an inactivity notice |
 | `/discharge` | Submit a discharge request |
-| `/gen-report` | Generate the weekly activity report |
+| `/gen-report` | Generate the weekly activity report (usable 2 times a week) |
 
 ## REST API
 

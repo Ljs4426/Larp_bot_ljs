@@ -6,13 +6,13 @@
 Run this on any Linux server and it handles everything — python, tesseract, all dependencies:
 
 ```bash
-bash <(curl -sSL https://raw.githubusercontent.com/Ljs4426/GAR_ARC_BOT/main/install.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/Ljs4426/Larp_bot_ljs/main/install.sh)
 ```
 
 Then fill in your config and start:
 
 ```bash
-cd GAR_ARC_BOT/discord-bot
+cd Larp_bot_ljs/discord-bot
 nano .env
 python3 main.py
 ```

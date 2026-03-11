@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "GAR ARC Bot — installer"
+echo "LARP BOT — installer"
 echo "========================"
 
 # system deps
@@ -11,8 +11,8 @@ sudo apt-get install -y -q python3 python3-pip python3-venv git tesseract-ocr
 
 # clone
 echo "[2/4] cloning repo..."
-git clone https://github.com/Ljs4426/GAR_ARC_BOT.git
-cd GAR_ARC_BOT/discord-bot
+git clone https://github.com/Ljs4426/Larp_bot_ljs.git
+cd Larp_bot_ljs/discord-bot
 
 # python deps
 echo "[3/4] installing python packages..."
@@ -25,7 +25,7 @@ cp .env.example .env
 echo ""
 echo "done. edit your config then start the bot:"
 echo ""
-echo "  cd GAR_ARC_BOT/discord-bot"
+echo "  cd Larp_bot_ljs/discord-bot"
 echo "  nano .env"
 echo "  python3 main.py"
 echo ""

@@ -409,7 +409,7 @@ class TryoutInputView(discord.ui.View):
     async def edit_attendees(self, interaction: discord.Interaction, button: discord.ui.Button):
         prefilled = "\n".join(f"{u} | {u}" for u in self.detected_usernames)
         await interaction.response.send_message(
-            "Use this format to edit the attendees, then **send it as a message in this channel**.\n"
+            "COPY this format to edit the attendees, then **send it as a message in this channel**.\n"
             "`orig | new` — rename   `| newname` — add   `origname |` — remove\n\n"
             f"```\n{prefilled}\n```\n"
             "You have **2 minutes**. Your message will be deleted after processing.",

@@ -1,0 +1,1325 @@
+{
+  "inactivity_notices": [
+    {
+      "user_id": 1027732252685250560,
+      "start_date": "2026-03-11T00:22:14.029600+00:00",
+      "end_date": "2026-03-19T00:00:00+00:00",
+      "reason": "I have to leave",
+      "status": "ended_early",
+      "approver_id": 1027732252685250560,
+      "message_id": 1481084803506770093,
+      "is_emergency": false,
+      "created_at": "2026-03-11T00:22:14.405407+00:00",
+      "updated_at": "2026-03-11T00:22:28.847133+00:00"
+    }
+  ],
+  "cooldowns": [
+    {
+      "user_id": 1027732252685250560,
+      "cooldown_end": "2026-03-25T00:22:28.842314+00:00",
+      "created_at": "2026-03-11T00:22:28.842344+00:00"
+    }
+  ],
+  "discharge_requests": [],
+  "ep_records": [
+    {
+      "roblox_username": "ghostlywhiff",
+      "roblox_user_id": 373297155,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391022+00:00",
+      "last_updated": "2026-03-10T01:56:19.391036+00:00"
+    },
+    {
+      "roblox_username": "murikraz",
+      "roblox_user_id": 58807360,
+      "discord_user_id": null,
+      "ep": -34,
+      "join_date": "2026-03-10T01:56:19.391423+00:00",
+      "last_updated": "2026-03-11T00:51:33.264361+00:00"
+    },
+    {
+      "roblox_username": "ea_gerr",
+      "roblox_user_id": 207344730,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391466+00:00",
+      "last_updated": "2026-03-10T01:56:19.391469+00:00"
+    },
+    {
+      "roblox_username": "EquaIzz",
+      "roblox_user_id": 366901355,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391501+00:00",
+      "last_updated": "2026-03-10T01:56:19.391504+00:00"
+    },
+    {
+      "roblox_username": "AB603892902",
+      "roblox_user_id": 1501966445,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391507+00:00",
+      "last_updated": "2026-03-10T01:56:19.391509+00:00"
+    },
+    {
+      "roblox_username": "masqrader",
+      "roblox_user_id": 1095840913,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391559+00:00",
+      "last_updated": "2026-03-10T01:56:19.391562+00:00"
+    },
+    {
+      "roblox_username": "googoomeowmeow17",
+      "roblox_user_id": 34532500,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391585+00:00",
+      "last_updated": "2026-03-10T01:56:19.391588+00:00"
+    },
+    {
+      "roblox_username": "messidestructer",
+      "roblox_user_id": 387833018,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391636+00:00",
+      "last_updated": "2026-03-10T01:56:19.391638+00:00"
+    },
+    {
+      "roblox_username": "Shinsire",
+      "roblox_user_id": 1207155912,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391666+00:00",
+      "last_updated": "2026-03-10T01:56:19.391668+00:00"
+    },
+    {
+      "roblox_username": "xoqisz",
+      "roblox_user_id": 415551690,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391676+00:00",
+      "last_updated": "2026-03-10T01:56:19.391679+00:00"
+    },
+    {
+      "roblox_username": "h_oplite",
+      "roblox_user_id": 225720568,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391824+00:00",
+      "last_updated": "2026-03-10T01:56:19.391827+00:00"
+    },
+    {
+      "roblox_username": "Armundus",
+      "roblox_user_id": 8641785,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391832+00:00",
+      "last_updated": "2026-03-10T01:56:19.391835+00:00"
+    },
+    {
+      "roblox_username": "mark01186",
+      "roblox_user_id": 120619288,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391893+00:00",
+      "last_updated": "2026-03-10T01:56:19.391899+00:00"
+    },
+    {
+      "roblox_username": "ZircongamingHD",
+      "roblox_user_id": 342312222,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.391922+00:00",
+      "last_updated": "2026-03-10T01:56:19.391924+00:00"
+    },
+    {
+      "roblox_username": "iiEmxrld",
+      "roblox_user_id": 400599351,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393002+00:00",
+      "last_updated": "2026-03-10T01:56:19.393005+00:00"
+    },
+    {
+      "roblox_username": "Skyl_l",
+      "roblox_user_id": 133844312,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393123+00:00",
+      "last_updated": "2026-03-10T01:56:19.393125+00:00"
+    },
+    {
+      "roblox_username": "GarBrozo",
+      "roblox_user_id": 4262679899,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393145+00:00",
+      "last_updated": "2026-03-10T01:56:19.393148+00:00"
+    },
+    {
+      "roblox_username": "takameows",
+      "roblox_user_id": 104873329,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393171+00:00",
+      "last_updated": "2026-03-10T01:56:19.393174+00:00"
+    },
+    {
+      "roblox_username": "eviIhaze",
+      "roblox_user_id": 2346573195,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393235+00:00",
+      "last_updated": "2026-03-10T01:56:19.393238+00:00"
+    },
+    {
+      "roblox_username": "EndeavoredHuman",
+      "roblox_user_id": 1634575775,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393284+00:00",
+      "last_updated": "2026-03-10T01:56:19.393287+00:00"
+    },
+    {
+      "roblox_username": "hyppocryticaI",
+      "roblox_user_id": 2520533410,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393289+00:00",
+      "last_updated": "2026-03-10T01:56:19.393292+00:00"
+    },
+    {
+      "roblox_username": "Zandoviar",
+      "roblox_user_id": 202164675,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393331+00:00",
+      "last_updated": "2026-03-10T01:56:19.393334+00:00"
+    },
+    {
+      "roblox_username": "icypacts",
+      "roblox_user_id": 311604708,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393408+00:00",
+      "last_updated": "2026-03-10T01:56:19.393410+00:00"
+    },
+    {
+      "roblox_username": "SHUN_060724",
+      "roblox_user_id": 145256935,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393426+00:00",
+      "last_updated": "2026-03-10T01:56:19.393431+00:00"
+    },
+    {
+      "roblox_username": "Volroxx",
+      "roblox_user_id": 485732859,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393454+00:00",
+      "last_updated": "2026-03-10T01:56:19.393457+00:00"
+    },
+    {
+      "roblox_username": "PastelxLxve",
+      "roblox_user_id": 378502651,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393461+00:00",
+      "last_updated": "2026-03-10T01:56:19.393464+00:00"
+    },
+    {
+      "roblox_username": "nv9ht",
+      "roblox_user_id": 1037647384,
+      "discord_user_id": null,
+      "ep": 7,
+      "join_date": "2026-03-10T01:56:19.393571+00:00",
+      "last_updated": "2026-03-11T01:24:18.176777+00:00"
+    },
+    {
+      "roblox_username": "iiamericanix",
+      "roblox_user_id": 82759197,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393585+00:00",
+      "last_updated": "2026-03-10T01:56:19.393588+00:00"
+    },
+    {
+      "roblox_username": "RainyLofi",
+      "roblox_user_id": 248428063,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393616+00:00",
+      "last_updated": "2026-03-10T01:56:19.393619+00:00"
+    },
+    {
+      "roblox_username": "exxosantana",
+      "roblox_user_id": 513263165,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393690+00:00",
+      "last_updated": "2026-03-10T01:56:19.393693+00:00"
+    },
+    {
+      "roblox_username": "blackmanoverseas",
+      "roblox_user_id": 1449913935,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.393722+00:00",
+      "last_updated": "2026-03-10T01:56:19.393725+00:00"
+    },
+    {
+      "roblox_username": "fat_redbird",
+      "roblox_user_id": 1674870369,
+      "discord_user_id": null,
+      "ep": 7,
+      "join_date": "2026-03-10T01:56:19.393735+00:00",
+      "last_updated": "2026-03-11T01:24:18.174257+00:00"
+    },
+    {
+      "roblox_username": "Surge412",
+      "roblox_user_id": 81916603,
+      "discord_user_id": null,
+      "ep": 3,
+      "join_date": "2026-03-10T01:56:19.393983+00:00",
+      "last_updated": "2026-03-10T22:26:41.607848+00:00"
+    },
+    {
+      "roblox_username": "asunaqv",
+      "roblox_user_id": 14142143,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.394003+00:00",
+      "last_updated": "2026-03-10T01:56:19.394006+00:00"
+    },
+    {
+      "roblox_username": "Spiritlnkx2",
+      "roblox_user_id": 3679126240,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.394100+00:00",
+      "last_updated": "2026-03-10T01:56:19.394103+00:00"
+    },
+    {
+      "roblox_username": "GARACCOUNT",
+      "roblox_user_id": 3985616613,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.394113+00:00",
+      "last_updated": "2026-03-10T01:56:19.394115+00:00"
+    },
+    {
+      "roblox_username": "CatsShard",
+      "roblox_user_id": 488510191,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.394132+00:00",
+      "last_updated": "2026-03-10T01:56:19.394135+00:00"
+    },
+    {
+      "roblox_username": "StephenSyndrome",
+      "roblox_user_id": 106851151,
+      "discord_user_id": null,
+      "ep": 3,
+      "join_date": "2026-03-10T01:56:19.394461+00:00",
+      "last_updated": "2026-03-10T22:26:41.617248+00:00"
+    },
+    {
+      "roblox_username": "samz1ane",
+      "roblox_user_id": 1783370592,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.394501+00:00",
+      "last_updated": "2026-03-10T01:56:19.394503+00:00"
+    },
+    {
+      "roblox_username": "hiversy",
+      "roblox_user_id": 115118028,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-10T01:56:19.394884+00:00",
+      "last_updated": "2026-03-10T01:56:19.394887+00:00"
+    },
+    {
+      "roblox_username": "st_eiiar",
+      "roblox_user_id": 829956428,
+      "discord_user_id": null,
+      "ep": -394,
+      "join_date": "2026-03-11T00:51:53.037907+00:00",
+      "last_updated": "2026-03-11T00:51:53.042797+00:00"
+    },
+    {
+      "roblox_username": "d0lch",
+      "roblox_user_id": 35568642,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135369+00:00",
+      "last_updated": "2026-03-11T01:23:21.135386+00:00"
+    },
+    {
+      "roblox_username": "VexFerr",
+      "roblox_user_id": 1808936964,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135395+00:00",
+      "last_updated": "2026-03-11T01:23:21.135400+00:00"
+    },
+    {
+      "roblox_username": "stead_y",
+      "roblox_user_id": 897960457,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135406+00:00",
+      "last_updated": "2026-03-11T01:23:21.135410+00:00"
+    },
+    {
+      "roblox_username": "J1HNY",
+      "roblox_user_id": 381201425,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135415+00:00",
+      "last_updated": "2026-03-11T01:23:21.135419+00:00"
+    },
+    {
+      "roblox_username": "PatrickAIt",
+      "roblox_user_id": 2490717713,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135423+00:00",
+      "last_updated": "2026-03-11T01:23:21.135427+00:00"
+    },
+    {
+      "roblox_username": "Avaitron",
+      "roblox_user_id": 43779108,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135432+00:00",
+      "last_updated": "2026-03-11T01:23:21.135436+00:00"
+    },
+    {
+      "roblox_username": "Flawlesssxs",
+      "roblox_user_id": 117868600,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135441+00:00",
+      "last_updated": "2026-03-11T01:23:21.135445+00:00"
+    },
+    {
+      "roblox_username": "spacebot50",
+      "roblox_user_id": 645196862,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135450+00:00",
+      "last_updated": "2026-03-11T01:23:21.135454+00:00"
+    },
+    {
+      "roblox_username": "pvlandd",
+      "roblox_user_id": 1898046018,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135459+00:00",
+      "last_updated": "2026-03-11T01:23:21.135463+00:00"
+    },
+    {
+      "roblox_username": "v_ntress",
+      "roblox_user_id": 2500065860,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135468+00:00",
+      "last_updated": "2026-03-11T01:23:21.135472+00:00"
+    },
+    {
+      "roblox_username": "MrAv1at1on",
+      "roblox_user_id": 710635088,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135477+00:00",
+      "last_updated": "2026-03-11T01:23:21.135482+00:00"
+    },
+    {
+      "roblox_username": "sassysalamander16",
+      "roblox_user_id": 148202577,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135488+00:00",
+      "last_updated": "2026-03-11T01:23:21.135492+00:00"
+    },
+    {
+      "roblox_username": "vibezlt",
+      "roblox_user_id": 1715618912,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135497+00:00",
+      "last_updated": "2026-03-11T01:23:21.135501+00:00"
+    },
+    {
+      "roblox_username": "szmozet",
+      "roblox_user_id": 546304609,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135505+00:00",
+      "last_updated": "2026-03-11T01:23:21.135509+00:00"
+    },
+    {
+      "roblox_username": "Zadriar",
+      "roblox_user_id": 52125793,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135514+00:00",
+      "last_updated": "2026-03-11T01:23:21.135518+00:00"
+    },
+    {
+      "roblox_username": "ariszaas",
+      "roblox_user_id": 62411366,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135523+00:00",
+      "last_updated": "2026-03-11T01:23:21.135527+00:00"
+    },
+    {
+      "roblox_username": "Inginetic",
+      "roblox_user_id": 248562284,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135532+00:00",
+      "last_updated": "2026-03-11T01:23:21.135535+00:00"
+    },
+    {
+      "roblox_username": "ackfond",
+      "roblox_user_id": 1953671282,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135539+00:00",
+      "last_updated": "2026-03-11T01:23:21.135543+00:00"
+    },
+    {
+      "roblox_username": "0pxvv",
+      "roblox_user_id": 131494003,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135547+00:00",
+      "last_updated": "2026-03-11T01:23:21.135551+00:00"
+    },
+    {
+      "roblox_username": "snake_100nm",
+      "roblox_user_id": 504228475,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135555+00:00",
+      "last_updated": "2026-03-11T01:23:21.135559+00:00"
+    },
+    {
+      "roblox_username": "crihbrown",
+      "roblox_user_id": 3536672385,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135571+00:00",
+      "last_updated": "2026-03-11T01:23:21.135575+00:00"
+    },
+    {
+      "roblox_username": "scythse",
+      "roblox_user_id": 126842501,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135579+00:00",
+      "last_updated": "2026-03-11T01:23:21.135582+00:00"
+    },
+    {
+      "roblox_username": "NACKRR",
+      "roblox_user_id": 482809492,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135587+00:00",
+      "last_updated": "2026-03-11T01:23:21.135590+00:00"
+    },
+    {
+      "roblox_username": "yvngxworst",
+      "roblox_user_id": 2997054101,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135599+00:00",
+      "last_updated": "2026-03-11T01:23:21.135603+00:00"
+    },
+    {
+      "roblox_username": "benjabase",
+      "roblox_user_id": 333030038,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135609+00:00",
+      "last_updated": "2026-03-11T01:23:21.135612+00:00"
+    },
+    {
+      "roblox_username": "bluerepublicgunship",
+      "roblox_user_id": 89173151,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135617+00:00",
+      "last_updated": "2026-03-11T01:23:21.135620+00:00"
+    },
+    {
+      "roblox_username": "iwasnevercompeting",
+      "roblox_user_id": 3083723937,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135625+00:00",
+      "last_updated": "2026-03-11T01:23:21.135629+00:00"
+    },
+    {
+      "roblox_username": "MoncIizy",
+      "roblox_user_id": 94853286,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135634+00:00",
+      "last_updated": "2026-03-11T01:23:21.135638+00:00"
+    },
+    {
+      "roblox_username": "k9_Kuba",
+      "roblox_user_id": 1326315176,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135643+00:00",
+      "last_updated": "2026-03-11T01:23:21.135646+00:00"
+    },
+    {
+      "roblox_username": "VentxreSights",
+      "roblox_user_id": 1220178090,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135651+00:00",
+      "last_updated": "2026-03-11T01:23:21.135655+00:00"
+    },
+    {
+      "roblox_username": "0perial",
+      "roblox_user_id": 197141675,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135660+00:00",
+      "last_updated": "2026-03-11T01:23:21.135664+00:00"
+    },
+    {
+      "roblox_username": "jomjastic",
+      "roblox_user_id": 2235856556,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135669+00:00",
+      "last_updated": "2026-03-11T01:23:21.135673+00:00"
+    },
+    {
+      "roblox_username": "sagemodeyeet",
+      "roblox_user_id": 686992556,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135677+00:00",
+      "last_updated": "2026-03-11T01:23:21.135681+00:00"
+    },
+    {
+      "roblox_username": "pIatinum_xe",
+      "roblox_user_id": 551949493,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135686+00:00",
+      "last_updated": "2026-03-11T01:23:21.135690+00:00"
+    },
+    {
+      "roblox_username": "raniops",
+      "roblox_user_id": 64776898,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135694+00:00",
+      "last_updated": "2026-03-11T01:23:21.135699+00:00"
+    },
+    {
+      "roblox_username": "BlueSqua123",
+      "roblox_user_id": 1522645700,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135704+00:00",
+      "last_updated": "2026-03-11T01:23:21.135707+00:00"
+    },
+    {
+      "roblox_username": "Hexbolts",
+      "roblox_user_id": 1446798022,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135710+00:00",
+      "last_updated": "2026-03-11T01:23:21.135712+00:00"
+    },
+    {
+      "roblox_username": "shiizukha",
+      "roblox_user_id": 104043719,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135715+00:00",
+      "last_updated": "2026-03-11T01:23:21.135716+00:00"
+    },
+    {
+      "roblox_username": "NoAimLoser2",
+      "roblox_user_id": 241005255,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135719+00:00",
+      "last_updated": "2026-03-11T01:23:21.135721+00:00"
+    },
+    {
+      "roblox_username": "Kante6",
+      "roblox_user_id": 19334859,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135723+00:00",
+      "last_updated": "2026-03-11T01:23:21.135725+00:00"
+    },
+    {
+      "roblox_username": "Lat1hly",
+      "roblox_user_id": 149987020,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135728+00:00",
+      "last_updated": "2026-03-11T01:23:21.135729+00:00"
+    },
+    {
+      "roblox_username": "KILLMAN",
+      "roblox_user_id": 16076,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135732+00:00",
+      "last_updated": "2026-03-11T01:23:21.135734+00:00"
+    },
+    {
+      "roblox_username": "FortniteBilliGG1",
+      "roblox_user_id": 782660303,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135736+00:00",
+      "last_updated": "2026-03-11T01:23:21.135738+00:00"
+    },
+    {
+      "roblox_username": "Khival",
+      "roblox_user_id": 157452498,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135745+00:00",
+      "last_updated": "2026-03-11T01:23:21.135747+00:00"
+    },
+    {
+      "roblox_username": "0NELINER",
+      "roblox_user_id": 77018325,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135750+00:00",
+      "last_updated": "2026-03-11T01:23:21.135752+00:00"
+    },
+    {
+      "roblox_username": "outclaim",
+      "roblox_user_id": 107127516,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135754+00:00",
+      "last_updated": "2026-03-11T01:23:21.135759+00:00"
+    },
+    {
+      "roblox_username": "RICHSCHOLARRR",
+      "roblox_user_id": 1056576226,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135761+00:00",
+      "last_updated": "2026-03-11T01:23:21.135763+00:00"
+    },
+    {
+      "roblox_username": "slatz_e",
+      "roblox_user_id": 1292900579,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135765+00:00",
+      "last_updated": "2026-03-11T01:23:21.135767+00:00"
+    },
+    {
+      "roblox_username": "lostindasauceimaboss",
+      "roblox_user_id": 38159078,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135770+00:00",
+      "last_updated": "2026-03-11T01:23:21.135771+00:00"
+    },
+    {
+      "roblox_username": "cvlexz",
+      "roblox_user_id": 2345703669,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135774+00:00",
+      "last_updated": "2026-03-11T01:23:21.135776+00:00"
+    },
+    {
+      "roblox_username": "LoneChaotic",
+      "roblox_user_id": 58954998,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135778+00:00",
+      "last_updated": "2026-03-11T01:23:21.135780+00:00"
+    },
+    {
+      "roblox_username": "eterrnas",
+      "roblox_user_id": 116839671,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135782+00:00",
+      "last_updated": "2026-03-11T01:23:21.135784+00:00"
+    },
+    {
+      "roblox_username": "Iethalvx",
+      "roblox_user_id": 1901078779,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135787+00:00",
+      "last_updated": "2026-03-11T01:23:21.135788+00:00"
+    },
+    {
+      "roblox_username": "jadedobsession",
+      "roblox_user_id": 149032703,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135791+00:00",
+      "last_updated": "2026-03-11T01:23:21.135793+00:00"
+    },
+    {
+      "roblox_username": "Hzkaidn",
+      "roblox_user_id": 3755484927,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135795+00:00",
+      "last_updated": "2026-03-11T01:23:21.135797+00:00"
+    },
+    {
+      "roblox_username": "Hexuol",
+      "roblox_user_id": 834023683,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135800+00:00",
+      "last_updated": "2026-03-11T01:23:21.135802+00:00"
+    },
+    {
+      "roblox_username": "animegoon8",
+      "roblox_user_id": 1382611209,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135804+00:00",
+      "last_updated": "2026-03-11T01:23:21.135806+00:00"
+    },
+    {
+      "roblox_username": "xeqtol",
+      "roblox_user_id": 104890123,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135809+00:00",
+      "last_updated": "2026-03-11T01:23:21.135811+00:00"
+    },
+    {
+      "roblox_username": "p2w_cavalier",
+      "roblox_user_id": 44901654,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135813+00:00",
+      "last_updated": "2026-03-11T01:23:21.135815+00:00"
+    },
+    {
+      "roblox_username": "God1hly",
+      "roblox_user_id": 122239256,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135818+00:00",
+      "last_updated": "2026-03-11T01:23:21.135819+00:00"
+    },
+    {
+      "roblox_username": "vndreadd",
+      "roblox_user_id": 2004373273,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135822+00:00",
+      "last_updated": "2026-03-11T01:23:21.135824+00:00"
+    },
+    {
+      "roblox_username": "Gloryfication",
+      "roblox_user_id": 1123156762,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135826+00:00",
+      "last_updated": "2026-03-11T01:23:21.135828+00:00"
+    },
+    {
+      "roblox_username": "F_ortvna",
+      "roblox_user_id": 4856168729,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135832+00:00",
+      "last_updated": "2026-03-11T01:23:21.135834+00:00"
+    },
+    {
+      "roblox_username": "buzzinatorr",
+      "roblox_user_id": 106558239,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135837+00:00",
+      "last_updated": "2026-03-11T01:23:21.135839+00:00"
+    },
+    {
+      "roblox_username": "bottomfragg3r",
+      "roblox_user_id": 104981282,
+      "discord_user_id": null,
+      "ep": 4,
+      "join_date": "2026-03-11T01:23:21.135842+00:00",
+      "last_updated": "2026-03-11T01:24:18.178990+00:00"
+    },
+    {
+      "roblox_username": "BombardinoBusebibini",
+      "roblox_user_id": 214960939,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135846+00:00",
+      "last_updated": "2026-03-11T01:23:21.135848+00:00"
+    },
+    {
+      "roblox_username": "khritus",
+      "roblox_user_id": 1577892139,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135851+00:00",
+      "last_updated": "2026-03-11T01:23:21.135852+00:00"
+    },
+    {
+      "roblox_username": "nutaIot",
+      "roblox_user_id": 19939629,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135855+00:00",
+      "last_updated": "2026-03-11T01:23:21.135857+00:00"
+    },
+    {
+      "roblox_username": "lnegy",
+      "roblox_user_id": 203106118,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135859+00:00",
+      "last_updated": "2026-03-11T01:23:21.135861+00:00"
+    },
+    {
+      "roblox_username": "BETAAAAAAAH",
+      "roblox_user_id": 1140818247,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135863+00:00",
+      "last_updated": "2026-03-11T01:23:21.135865+00:00"
+    },
+    {
+      "roblox_username": "DRAULED",
+      "roblox_user_id": 1321140565,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135868+00:00",
+      "last_updated": "2026-03-11T01:23:21.135870+00:00"
+    },
+    {
+      "roblox_username": "Cynical_Faye",
+      "roblox_user_id": 636033880,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135874+00:00",
+      "last_updated": "2026-03-11T01:23:21.135876+00:00"
+    },
+    {
+      "roblox_username": "Bqliever",
+      "roblox_user_id": 593087322,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135879+00:00",
+      "last_updated": "2026-03-11T01:23:21.135881+00:00"
+    },
+    {
+      "roblox_username": "quivrs",
+      "roblox_user_id": 1535635292,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135883+00:00",
+      "last_updated": "2026-03-11T01:23:21.135885+00:00"
+    },
+    {
+      "roblox_username": "Solvcc",
+      "roblox_user_id": 203277148,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135887+00:00",
+      "last_updated": "2026-03-11T01:23:21.135889+00:00"
+    },
+    {
+      "roblox_username": "jxebb",
+      "roblox_user_id": 29575526,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135891+00:00",
+      "last_updated": "2026-03-11T01:23:21.135893+00:00"
+    },
+    {
+      "roblox_username": "vkevz",
+      "roblox_user_id": 519995241,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135896+00:00",
+      "last_updated": "2026-03-11T01:23:21.135898+00:00"
+    },
+    {
+      "roblox_username": "Acrynul",
+      "roblox_user_id": 1501426025,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135901+00:00",
+      "last_updated": "2026-03-11T01:23:21.135903+00:00"
+    },
+    {
+      "roblox_username": "CreeperDaniel2008",
+      "roblox_user_id": 470920045,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135905+00:00",
+      "last_updated": "2026-03-11T01:23:21.135907+00:00"
+    },
+    {
+      "roblox_username": "Maerrsk",
+      "roblox_user_id": 621028724,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135909+00:00",
+      "last_updated": "2026-03-11T01:23:21.135911+00:00"
+    },
+    {
+      "roblox_username": "pilotodiablo",
+      "roblox_user_id": 2357212537,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135914+00:00",
+      "last_updated": "2026-03-11T01:23:21.135916+00:00"
+    },
+    {
+      "roblox_username": "C_talyst",
+      "roblox_user_id": 76331902,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135919+00:00",
+      "last_updated": "2026-03-11T01:23:21.135921+00:00"
+    },
+    {
+      "roblox_username": "kmwuwuu",
+      "roblox_user_id": 1254092172,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135926+00:00",
+      "last_updated": "2026-03-11T01:23:21.135929+00:00"
+    },
+    {
+      "roblox_username": "NoAimLoser26",
+      "roblox_user_id": 1602432919,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135931+00:00",
+      "last_updated": "2026-03-11T01:23:21.135933+00:00"
+    },
+    {
+      "roblox_username": "uhhhleonnn",
+      "roblox_user_id": 2586979231,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135936+00:00",
+      "last_updated": "2026-03-11T01:23:21.135938+00:00"
+    },
+    {
+      "roblox_username": "OathOfRuin",
+      "roblox_user_id": 110495139,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135940+00:00",
+      "last_updated": "2026-03-11T01:23:21.135942+00:00"
+    },
+    {
+      "roblox_username": "Dxrkest",
+      "roblox_user_id": 139175339,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135944+00:00",
+      "last_updated": "2026-03-11T01:23:21.135946+00:00"
+    },
+    {
+      "roblox_username": "KingMatthewthewinner",
+      "roblox_user_id": 161670582,
+      "discord_user_id": null,
+      "ep": 3,
+      "join_date": "2026-03-11T01:23:21.135948+00:00",
+      "last_updated": "2026-03-11T01:26:12.658389+00:00"
+    },
+    {
+      "roblox_username": "camxlocks",
+      "roblox_user_id": 505970622,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135951+00:00",
+      "last_updated": "2026-03-11T01:23:21.135952+00:00"
+    },
+    {
+      "roblox_username": "ci_tyy",
+      "roblox_user_id": 209559489,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135954+00:00",
+      "last_updated": "2026-03-11T01:23:21.135956+00:00"
+    },
+    {
+      "roblox_username": "aukvai",
+      "roblox_user_id": 1369623492,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135958+00:00",
+      "last_updated": "2026-03-11T01:23:21.135959+00:00"
+    },
+    {
+      "roblox_username": "frindmaster2",
+      "roblox_user_id": 567038925,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135961+00:00",
+      "last_updated": "2026-03-11T01:23:21.135962+00:00"
+    },
+    {
+      "roblox_username": "rzeyf",
+      "roblox_user_id": 50268111,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135964+00:00",
+      "last_updated": "2026-03-11T01:23:21.135966+00:00"
+    },
+    {
+      "roblox_username": "vndawn",
+      "roblox_user_id": 1527214039,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135968+00:00",
+      "last_updated": "2026-03-11T01:23:21.135969+00:00"
+    },
+    {
+      "roblox_username": "m1nimaI",
+      "roblox_user_id": 112245209,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135971+00:00",
+      "last_updated": "2026-03-11T01:23:21.135972+00:00"
+    },
+    {
+      "roblox_username": "cul1l",
+      "roblox_user_id": 347941354,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135974+00:00",
+      "last_updated": "2026-03-11T01:23:21.135976+00:00"
+    },
+    {
+      "roblox_username": "GobbIez",
+      "roblox_user_id": 869929455,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135978+00:00",
+      "last_updated": "2026-03-11T01:23:21.135979+00:00"
+    },
+    {
+      "roblox_username": "Rxfresh",
+      "roblox_user_id": 93985776,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135983+00:00",
+      "last_updated": "2026-03-11T01:23:21.135985+00:00"
+    },
+    {
+      "roblox_username": "adven2urous",
+      "roblox_user_id": 757952503,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135987+00:00",
+      "last_updated": "2026-03-11T01:23:21.135989+00:00"
+    },
+    {
+      "roblox_username": "nodesiresss",
+      "roblox_user_id": 100460027,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135990+00:00",
+      "last_updated": "2026-03-11T01:23:21.135992+00:00"
+    },
+    {
+      "roblox_username": "mintbicycle",
+      "roblox_user_id": 224589822,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.135994+00:00",
+      "last_updated": "2026-03-11T01:23:21.135995+00:00"
+    },
+    {
+      "roblox_username": "cryo_cells",
+      "roblox_user_id": 1311312383,
+      "discord_user_id": null,
+      "ep": 0,
+      "join_date": "2026-03-11T01:23:21.136001+00:00",
+      "last_updated": "2026-03-11T01:23:21.136003+00:00"
+    }
+  ],
+  "event_log": [
+    {
+      "event_type": "Training",
+      "ep_awarded": 3,
+      "participants": [
+        "YahhBoyStar",
+        "ouboy341",
+        "PicklePortal",
+        "Hummel_Dumm6",
+        "MmGg201",
+        "Dragon50016",
+        "Justd29p",
+        "CookieALT555",
+        "Bedrockyt123",
+        "Nonupgradde"
+      ],
+      "not_found": [
+        "olivia45223"
+      ],
+      "host_discord_id": 1027732252685250560,
+      "host_discord_name": "ljs4426",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481029892404543700/image.png?ex=69b1d412&is=69b08292&hm=77f16691b841d975f15c80898bd9df1c3be023123a633f2be1cd7f948d7200ba&",
+      "logged_at": "2026-03-10T20:44:22.767216+00:00"
+    },
+    {
+      "event_type": "Training",
+      "ep_awarded": 3,
+      "participants": [
+        "zorkcst",
+        "CosmicShark0842",
+        "Bannaboiepic",
+        "Literal_Melee",
+        "JRRiquelme2000",
+        "ljs4426"
+      ],
+      "not_found": [
+        "BenjaminCoffin",
+        "Spct"
+      ],
+      "host_discord_id": 1027732252685250560,
+      "host_discord_name": "ljs4426",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481034617732595953/Screenshot_2026-03-09_at_4.54.39_PM.png?ex=69b1d879&is=69b086f9&hm=261c011816f9b875d6ff2888c124ae87b8fd00d10b937d14f91e2b3f842179aa&",
+      "logged_at": "2026-03-10T21:03:14.504207+00:00"
+    },
+    {
+      "event_type": "Defense",
+      "ep_awarded": 4,
+      "participants": [
+        "YahhBoyStar",
+        "ouboy341",
+        "PicklePortal",
+        "Hummel_Dumm6",
+        "MmGg201",
+        "Dragon50016",
+        "Justd29p"
+      ],
+      "not_found": [
+        "olivia45223",
+        "test"
+      ],
+      "host_discord_id": 1027732252685250560,
+      "host_discord_name": "ljs4426",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481053213347151983/image.png?ex=69b1e9ca&is=69b0984a&hm=5388ebb33e78560489f1aa369e4d404aca37c0c1233dee1511c151df722ada1d&",
+      "logged_at": "2026-03-10T22:17:44.195491+00:00"
+    },
+    {
+      "event_type": "Training",
+      "ep_awarded": 3,
+      "participants": [
+        "Surge412",
+        "StephenSyndrome"
+      ],
+      "not_found": [
+        "adven2urous",
+        "camxlocks",
+        "rzeyf",
+        "Hzkaidn",
+        "0pxvv",
+        "pilot"
+      ],
+      "host_discord_id": 260125755093024768,
+      "host_discord_name": "murikan",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481055566041321626/testpicture.png?ex=69b1ebfb&is=69b09a7b&hm=62aac54c8ce88b8af8dbeeebb25a4daf91e934e55f41e520dab1fcee6a940b6f&",
+      "logged_at": "2026-03-10T22:26:41.788464+00:00"
+    },
+    {
+      "event_type": "Defense",
+      "ep_awarded": 4,
+      "participants": [
+        "vexspct",
+        "Eokd_M8",
+        "Charliem000",
+        "Forntnite_2011",
+        "TFDSFSG",
+        "volititle",
+        "AtheonsSmart",
+        "KZGames_1",
+        "ErrorSans1280",
+        "emogigisi",
+        "fraktanari",
+        "Qa0ry"
+      ],
+      "not_found": [],
+      "host_discord_id": 1027732252685250560,
+      "host_discord_name": "ljs4426",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481057423396573184/Screenshot_2026-03-10_115238.png?ex=69b1edb6&is=69b09c36&hm=a39e34c968aecb7551cbd4a89392acff69089b468ad4f5afc6c8f2ee8e1d4418&",
+      "logged_at": "2026-03-10T22:34:02.842176+00:00"
+    },
+    {
+      "event_type": "Training",
+      "ep_awarded": 3,
+      "participants": [
+        "fat_redbird",
+        "nv9ht"
+      ],
+      "not_found": [
+        "lethalvx",
+        "Poland",
+        "bottomfragg3r",
+        "KingMatthewthewinn"
+      ],
+      "host_discord_id": 260125755093024768,
+      "host_discord_name": "murikan",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481091670077472878/testpicture2.png?ex=69b20d9b&is=69b0bc1b&hm=5129b41fc664b2834e17c8c9154c796e5d81cceffb6dd63d1a0d980f0bc8e417&",
+      "logged_at": "2026-03-11T00:50:12.092991+00:00"
+    },
+    {
+      "event_type": "Raid",
+      "ep_awarded": 4,
+      "participants": [
+        "fat_redbird",
+        "nv9ht",
+        "bottomfragg3r"
+      ],
+      "not_found": [
+        "lethalvx",
+        "Poland",
+        "KingMatthewthewinn"
+      ],
+      "host_discord_id": 260125755093024768,
+      "host_discord_name": "murikan",
+      "screenshot_url": "https://cdn.discordapp.com/ephemeral-attachments/1481015054831849618/1481100382645125180/testpicture2.png?ex=69b215b8&is=69b0c438&hm=8079de0f6e72058f833becd707fbf91803b8be6aeb5e9987ea54d2def37cb7c2&",
+      "logged_at": "2026-03-11T01:24:18.671564+00:00"
+    }
+  ],
+  "report_usage": [
+    {
+      "discord_user_id": 1027732252685250560,
+      "used_at": "2026-03-10T21:04:15.787429+00:00"
+    },
+    {
+      "discord_user_id": 1027732252685250560,
+      "used_at": "2026-03-10T22:34:22.422503+00:00"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# GAR ARC Bot
+# Larp Bot
 
 Discord bot for the 327th Star Corps. Handles EP tracking, event logging, inactivity notices, discharge requests, weekly reports, and a REST API.
 

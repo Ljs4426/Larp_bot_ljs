@@ -1,15 +1,42 @@
-"""JSON database for bot data."""
-
 import json
 import asyncio
 import os
 import shutil
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional
 from pathlib import Path
 import logging
 
 logger = logging.getLogger(__name__)
+
+# optional encryption — set DB_ENCRYPTION_KEY in .env to enable
+# generate a key with: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+_fernet = None
+_enc_key = os.getenv('DB_ENCRYPTION_KEY')
+if _enc_key:
+    try:
+        from cryptography.fernet import Fernet
+        _fernet = Fernet(_enc_key.encode())
+        logger.info("database encryption enabled")
+    except Exception as e:
+        logger.error(f"failed to init encryption key: {e} — running without encryption")
+else:
+    logger.warning(
+        "DB_ENCRYPTION_KEY is not set — database is stored as plaintext. "
+        "Set it in .env to encrypt at rest."
+    )
+
+
+def _encrypt(data: bytes) -> bytes:
+    if _fernet:
+        return _fernet.encrypt(data)
+    return data
+
+
+def _decrypt(data: bytes) -> bytes:
+    if _fernet:
+        return _fernet.decrypt(data)
+    return data
 
 
 class BotDatabase:
@@ -22,7 +49,8 @@ class BotDatabase:
             "discharge_requests": [],
             "ep_records": [],
             "event_log": [],
-            "report_usage": []
+            "report_usage": [],
+            "ep_audit_log": [],
         }
         self._ensure_file_exists()
 
@@ -34,8 +62,9 @@ class BotDatabase:
     def _write_sync(self, data: dict):
         try:
             temp_path = f"{self.file_path}.tmp"
-            with open(temp_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            raw = json.dumps(data, indent=2, ensure_ascii=False).encode('utf-8')
+            with open(temp_path, 'wb') as f:
+                f.write(_encrypt(raw))
             shutil.move(temp_path, self.file_path)
         except Exception as e:
             logger.error(f"db write error: {e}")
@@ -47,11 +76,17 @@ class BotDatabase:
         async with self.lock:
             try:
                 if os.path.exists(self.file_path):
-                    with open(self.file_path, 'r', encoding='utf-8') as f:
-                        loaded_data = json.load(f)
-                        for key in self.data.keys():
-                            if key in loaded_data:
-                                self.data[key] = loaded_data[key]
+                    with open(self.file_path, 'rb') as f:
+                        raw = f.read()
+                    # try decrypting; if it fails, assume the file is legacy plaintext
+                    try:
+                        raw = _decrypt(raw)
+                    except Exception:
+                        logger.warning("could not decrypt db — trying to read as plaintext (migration?)")
+                    loaded_data = json.loads(raw.decode('utf-8'))
+                    for key in self.data.keys():
+                        if key in loaded_data:
+                            self.data[key] = loaded_data[key]
                     logger.info(f"db loaded from {self.file_path}")
                 else:
                     logger.warning(f"db file not found: {self.file_path}")
@@ -65,8 +100,13 @@ class BotDatabase:
         backup_path = f"{self.file_path}.backup"
         if os.path.exists(backup_path):
             try:
-                with open(backup_path, 'r', encoding='utf-8') as f:
-                    self.data = json.load(f)
+                with open(backup_path, 'rb') as f:
+                    raw = f.read()
+                try:
+                    raw = _decrypt(raw)
+                except Exception:
+                    pass
+                self.data = json.loads(raw.decode('utf-8'))
                 logger.info(f"loaded backup: {backup_path}")
             except Exception as e:
                 logger.error(f"backup load error: {e}")
@@ -77,8 +117,9 @@ class BotDatabase:
             if os.path.exists(self.file_path):
                 shutil.copy2(self.file_path, f"{self.file_path}.backup")
             temp_path = f"{self.file_path}.tmp"
-            with open(temp_path, 'w', encoding='utf-8') as f:
-                json.dump(self.data, f, indent=2, ensure_ascii=False)
+            raw = json.dumps(self.data, indent=2, ensure_ascii=False).encode('utf-8')
+            with open(temp_path, 'wb') as f:
+                f.write(_encrypt(raw))
             shutil.move(temp_path, self.file_path)
             logger.debug("db saved")
         except Exception as e:
@@ -301,6 +342,37 @@ class BotDatabase:
 
     async def get_all_ep_records(self) -> List[dict]:
         return list(self.data["ep_records"])
+
+    # EP audit log — tracks every EP change so there's a paper trail
+
+    async def add_ep_audit_entry(
+        self,
+        editor_discord_id: int,
+        editor_name: str,
+        roblox_username: str,
+        old_ep: int,
+        new_ep: int,
+        delta: int,
+    ) -> dict:
+        entry = {
+            "editor_discord_id": editor_discord_id,
+            "editor_name": editor_name,
+            "roblox_username": roblox_username,
+            "old_ep": old_ep,
+            "new_ep": new_ep,
+            "delta": delta,
+            "changed_at": datetime.now(timezone.utc).isoformat(),
+        }
+        self.data["ep_audit_log"].append(entry)
+        await self.save()
+        return entry
+
+    async def get_ep_audit_log(self, roblox_username: Optional[str] = None) -> List[dict]:
+        """return the full audit log, or filter by username if given"""
+        if roblox_username:
+            target = roblox_username.lower()
+            return [e for e in self.data["ep_audit_log"] if e["roblox_username"].lower() == target]
+        return list(self.data["ep_audit_log"])
 
     # event log
 

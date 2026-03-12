@@ -475,7 +475,7 @@ class Log(commands.Cog):
         self.database = database
         self.roblox_api = roblox_api
         self.command_logger = command_logger
-        self.rate_limiter = RateLimiter(max_uses=5, time_window=60)
+        self.rate_limiter = RateLimiter(max_uses=5, time_window=60, persist_path="rate_limits_log.json")
 
     @app_commands.command(name="log", description="Log an event and award EP to participants")
     @app_commands.describe(
@@ -607,9 +607,15 @@ class Log(commands.Cog):
             return []
 
     async def _extract_with_claude(self, image_bytes: bytes, content_type: str) -> List[str]:
+        # Claude vision sends the screenshot to Anthropic's servers.
+        # Set CLAUDE_VISION_ENABLED=false in .env if you want to disable this.
+        if os.getenv('CLAUDE_VISION_ENABLED', 'true').lower() != 'true':
+            logger.info("Claude vision disabled via CLAUDE_VISION_ENABLED=false")
+            return []
         api_key = os.getenv('ANTHROPIC_API_KEY')
         if not api_key:
             return []
+        logger.info("sending screenshot to Claude API for username extraction")
         try:
             import anthropic
             client = anthropic.AsyncAnthropic(api_key=api_key)

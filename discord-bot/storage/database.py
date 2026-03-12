@@ -401,6 +401,9 @@ class BotDatabase:
         await self.save()
         return entry
 
+    async def get_all_event_log_entries(self) -> List[dict]:
+        return list(self.data["event_log"])
+
     async def get_event_log_since(self, since: datetime) -> List[dict]:
         return [
             e for e in self.data["event_log"]

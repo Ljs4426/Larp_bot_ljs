@@ -625,7 +625,29 @@ class Log(commands.Cog):
             )
             return
 
-        # no screenshot — open the manual entry modal instead
+        # LOG_MODE controls which input methods are allowed:
+        #   flexible          (default) — screenshot optional, no screenshot opens manual modal
+        #   screenshot_required         — screenshot is always required, manual entry disabled
+        #   manual_only                 — screenshot is ignored, always opens manual modal
+        log_mode = os.getenv('LOG_MODE', 'flexible').lower()
+
+        if log_mode == 'manual_only':
+            modal = ManualUsernamesModal(
+                self.bot, self.database, self.command_logger,
+                event_type, ep_amount, interaction.user
+            )
+            await interaction.response.send_modal(modal)
+            return
+
+        if log_mode == 'screenshot_required' and screenshot is None:
+            await interaction.response.send_message(
+                "❌ A screenshot is required for this server's log settings.\n"
+                "Attach a screenshot and try again.",
+                ephemeral=True
+            )
+            return
+
+        # flexible / screenshot provided in screenshot_required mode — fall through to screenshot flow
         if screenshot is None:
             modal = ManualUsernamesModal(
                 self.bot, self.database, self.command_logger,

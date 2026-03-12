@@ -1,7 +1,12 @@
 """Event logging cog — /log.
 
-flow: /log → download screenshot → ocr/claude extract usernames →
-confirm view → award EP → save to event_log → post to EVENT_LOG_CHANNEL_ID
+two ways to log an event:
+  - with screenshot: /log event_type:X screenshot:<file>  — OCR/Claude extracts usernames
+  - manual:          /log event_type:X                    — opens a text box to type names
+
+in manual mode you can enter Roblox usernames or @Discord mentions.
+Discord mentions get resolved to the linked Roblox username if the user
+has verified their account, otherwise they're listed as unresolved.
 
 permissions: LOG_ROLE_ID → EP_MANAGER_ROLE_ID → manage_guild → admin
 """
@@ -28,6 +33,7 @@ logger = logging.getLogger(__name__)
 
 _USERNAME_RE = re.compile(r'\b([A-Za-z0-9][A-Za-z0-9_]{1,18}[A-Za-z0-9]|[A-Za-z0-9]{3})\b')
 _VALID_USERNAME_RE = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_]{1,18}[A-Za-z0-9]$|^[A-Za-z0-9]{3}$')
+_MENTION_RE = re.compile(r'^<@!?(\d+)>$')
 
 _STOPWORDS = {
     'the', 'and', 'for', 'you', 'with', 'this', 'that', 'from', 'are',
@@ -467,6 +473,112 @@ class TryoutInputView(discord.ui.View):
 
 
 
+async def _parse_manual_input(raw: str, database) -> tuple:
+    """
+    parse a block of text into (usernames, unresolved_mentions).
+
+    each line can be:
+      - a Roblox username        →  added directly
+      - a Discord mention        →  looked up in the EP records by discord_user_id
+      - an unresolvable mention  →  added to unresolved list so the caller can warn
+
+    returns (list[str], list[str])
+    """
+    usernames: List[str] = []
+    unresolved: List[str] = []
+    seen: set = set()
+
+    for line in raw.splitlines():
+        entry = line.strip()
+        if not entry:
+            continue
+
+        mention_match = _MENTION_RE.match(entry)
+        if mention_match:
+            # it's a Discord mention — try to find their linked Roblox account
+            discord_id = int(mention_match.group(1))
+            roblox_username = None
+            for r in database.data.get("ep_records", []):
+                if r.get("discord_user_id") == discord_id:
+                    roblox_username = r["roblox_username"]
+                    break
+            if roblox_username:
+                key = roblox_username.lower()
+                if key not in seen:
+                    seen.add(key)
+                    usernames.append(roblox_username)
+            else:
+                unresolved.append(entry)
+            continue
+
+        # treat it as a plain Roblox username
+        if _VALID_USERNAME_RE.match(entry) and entry.lower() not in _STOPWORDS:
+            key = entry.lower()
+            if key not in seen:
+                seen.add(key)
+                usernames.append(entry)
+
+    return usernames, unresolved
+
+
+class ManualUsernamesModal(discord.ui.Modal, title="Enter Attendee Usernames"):
+    usernames_input = discord.ui.TextInput(
+        label="Roblox usernames or @mentions (one per line)",
+        style=discord.TextStyle.paragraph,
+        placeholder="PlayerOne\nPlayerTwo\n@DiscordUser\nPlayerThree",
+        required=True,
+        max_length=2000,
+    )
+
+    def __init__(self, bot, database, command_logger, event_type, ep_amount, requester):
+        super().__init__()
+        self.bot = bot
+        self.database = database
+        self.command_logger = command_logger
+        self.event_type = event_type
+        self.ep_amount = ep_amount
+        self.requester = requester
+
+    async def on_submit(self, interaction: discord.Interaction):
+        usernames, unresolved = await _parse_manual_input(
+            self.usernames_input.value, self.database
+        )
+
+        if not usernames and not unresolved:
+            await interaction.response.send_message(
+                "❌ No valid usernames found. Make sure each name is on its own line.",
+                ephemeral=True
+            )
+            return
+
+        embed = _confirmation_embed(self.event_type, usernames, self.ep_amount)
+
+        if unresolved:
+            embed.add_field(
+                name=f"⚠️ Unresolved mentions ({len(unresolved)})",
+                value=(
+                    "\n".join(unresolved[:20]) + "\n"
+                    "*These Discord users haven't verified their Roblox account — "
+                    "add their Roblox usernames manually or ask them to run /verify.*"
+                )[:1024],
+                inline=False,
+            )
+
+        view = ConfirmLogView(
+            self.bot, self.database, self.command_logger,
+            self.event_type, usernames, self.ep_amount, self.requester,
+            screenshot_url=None,
+        )
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+
+        await self.command_logger(
+            interaction, "log manual",
+            {"event_type": self.event_type, "usernames_entered": len(usernames),
+             "unresolved_mentions": len(unresolved)},
+            success=True
+        )
+
+
 class Log(commands.Cog):
     """Provides /log."""
 
@@ -480,14 +592,14 @@ class Log(commands.Cog):
     @app_commands.command(name="log", description="Log an event and award EP to participants")
     @app_commands.describe(
         event_type="Type of event (choose from the list)",
-        screenshot="Screenshot proof of the event (PNG, JPG, GIF, WebP — max 10 MB)"
+        screenshot="Screenshot proof — leave blank to type usernames manually instead"
     )
     @app_commands.autocomplete(event_type=event_type_autocomplete)
     async def log_event(
         self,
         interaction: discord.Interaction,
         event_type: str,
-        screenshot: discord.Attachment
+        screenshot: Optional[discord.Attachment] = None
     ):
         if not _has_log_permission(interaction):
             await interaction.response.send_message(
@@ -511,6 +623,15 @@ class Log(commands.Cog):
                 f"❌ Unknown event type **{event_type}**.\nValid types: {event_names}",
                 ephemeral=True
             )
+            return
+
+        # no screenshot — open the manual entry modal instead
+        if screenshot is None:
+            modal = ManualUsernamesModal(
+                self.bot, self.database, self.command_logger,
+                event_type, ep_amount, interaction.user
+            )
+            await interaction.response.send_modal(modal)
             return
 
         try:

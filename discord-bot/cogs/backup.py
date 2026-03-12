@@ -158,7 +158,7 @@ class Backup(commands.Cog):
             return
 
         # Fetch Roblox assets to match the existing embed style
-        roblox_user_id  = int(os.getenv('ROBLOX_USER_ID',  296030103))
+        roblox_user_id  = 296030103
         roblox_group_id = int(os.getenv('ROBLOX_GROUP_ID', 5674426))
 
         footer_icon_url = None

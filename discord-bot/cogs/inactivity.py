@@ -348,7 +348,7 @@ class InactivityButtons(discord.ui.View):
             
             # Send denial DM
             try:
-                roblox_user_id = int(os.getenv('ROBLOX_USER_ID', 296030103))
+                roblox_user_id = 296030103
                 footer_icon_url = await self.roblox_api.get_user_avatar(roblox_user_id)
                 
                 denial_embed = await create_inactivity_denial_embed(
@@ -523,7 +523,7 @@ class Inactivity(commands.Cog):
             has_cooldown_role = cooldown_role and cooldown_role in interaction.user.roles
             
             # Fetch Roblox data
-            roblox_user_id = int(os.getenv('ROBLOX_USER_ID', 296030103))
+            roblox_user_id = 296030103
             roblox_group_id = int(os.getenv('ROBLOX_GROUP_ID', 5674426))
             
             footer_icon_url = await self.roblox_api.get_user_avatar(roblox_user_id)

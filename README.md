@@ -1,4 +1,4 @@
-# 327th Star Corps Discord Bot
+# Larp Bot Discord Bot
 
 A Discord bot for managing Engagement Points (EP), event logging, inactivity tracking, discharge requests, and Roblox account verification for a Roblox military unit.
 
@@ -109,7 +109,7 @@ DB_ENCRYPTION_KEY=
 LOG_MODE=flexible
 
 # Report settings
-REPORT_UNIT_NAME=327th Star Corps
+REPORT_UNIT_NAME=Larp Bot
 REPORT_TOP_EP_COUNT=10
 REPORT_COLOR_PRIMARY=1B2A4A
 REPORT_COLOR_ACCENT=C9A84C
@@ -271,7 +271,7 @@ Create `/etc/systemd/system/larp-bot.service`:
 
 ```ini
 [Unit]
-Description=327th Star Corps Discord Bot
+Description=Larp Bot Discord Bot
 After=network.target
 
 [Service]

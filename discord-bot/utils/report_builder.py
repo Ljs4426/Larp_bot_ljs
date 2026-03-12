@@ -67,9 +67,11 @@ async def generate_ai_summary(
         type_counts    = defaultdict(int)
         for e in events:
             type_counts[e['event_type']] += 1
-        top5     = sorted(ep_records, key=lambda r: r['ep'], reverse=True)[:5]
-        top5_str = ', '.join(f"{r['roblox_username']} ({r['ep']} EP)" for r in top5)
-        unit     = os.getenv('REPORT_UNIT_NAME', '327th Star Corps')
+        unit = os.getenv('REPORT_UNIT_NAME', '327th Star Corps')
+
+        # only send aggregate numbers to Claude — no usernames or member IDs
+        top5_ep_values = sorted([r['ep'] for r in ep_records], reverse=True)[:5]
+        top5_str = ', '.join(str(ep) for ep in top5_ep_values) if top5_ep_values else 'none'
 
         prev_context = ""
         if prev_events:
@@ -90,7 +92,7 @@ async def generate_ai_summary(
             f"Total EP awarded: {total_ep}\n"
             f"Unique active members: {unique_members}\n"
             f"Events by type: {dict(type_counts)}\n"
-            f"Top 5 EP holders: {top5_str or 'none'}\n"
+            f"Top 5 EP totals (highest earners, no names): {top5_str}\n"
             f"{prev_context}\n"
             "Write a professional 2–3 paragraph executive summary. "
             "Be concise and factual. Highlight trends, participation levels, "

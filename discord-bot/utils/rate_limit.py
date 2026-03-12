@@ -1,179 +1,133 @@
-"""Rate limiting utilities for Discord bot."""
-
 import time
+import json
+import os
+import logging
 from collections import defaultdict
-from typing import Dict, Tuple
+
+logger = logging.getLogger(__name__)
 
 
 class RateLimiter:
-    """
-    Rate limiter implementation to prevent command spam.
-    
-    Tracks command usage per user with configurable limits.
-    """
-    
-    def __init__(self, max_uses: int = 5, time_window: int = 60):
-        """
-        Initialize rate limiter.
-        
-        Args:
-            max_uses: Maximum number of uses allowed within time window
-            time_window: Time window in seconds (default 60 = 1 minute)
-        """
+    """tracks per-user command usage and blocks if they go over the limit"""
+
+    def __init__(self, max_uses: int = 5, time_window: int = 60, persist_path: str = None):
         self.max_uses = max_uses
         self.time_window = time_window
-        # Structure: {user_id: [(timestamp1, command1), (timestamp2, command2), ...]}
-        self.usage_history: Dict[int, list] = defaultdict(list)
-    
-    def check_rate_limit(self, user_id: int, command_name: str) -> Tuple[bool, int]:
-        """
-        Check if user has exceeded rate limit for any command.
-        
-        Args:
-            user_id: Discord user ID
-            command_name: Name of the command being used
-            
-        Returns:
-            Tuple of (is_allowed: bool, remaining_uses: int)
-        """
-        current_time = time.time()
-        
-        # Get user's history
-        user_history = self.usage_history[user_id]
-        
-        # Remove entries older than the time window
-        user_history[:] = [
-            (timestamp, cmd) for timestamp, cmd in user_history
-            if current_time - timestamp < self.time_window
+        self.persist_path = persist_path
+        # {user_id: [(timestamp, command_name), ...]}
+        self.usage_history: dict = defaultdict(list)
+        # load saved history so limits survive bot restarts
+        if persist_path:
+            self.load_from_file(persist_path)
+
+    def check_rate_limit(self, user_id: int, command_name: str) -> tuple:
+        """returns (allowed: bool, retry_after_seconds: int)"""
+        now = time.time()
+        history = self.usage_history[user_id]
+
+        # drop anything older than the window
+        history[:] = [
+            (ts, cmd) for ts, cmd in history
+            if now - ts < self.time_window
         ]
-        
-        # Check if user has exceeded limit
-        if len(user_history) >= self.max_uses:
-            # Calculate when the oldest entry will expire
-            oldest_timestamp = user_history[0][0]
-            retry_after = int(self.time_window - (current_time - oldest_timestamp)) + 1
+
+        if len(history) >= self.max_uses:
+            oldest = history[0][0]
+            retry_after = int(self.time_window - (now - oldest)) + 1
             return False, retry_after
-        
-        # Add current usage
-        user_history.append((current_time, command_name))
-        
-        remaining = self.max_uses - len(user_history)
+
+        history.append((now, command_name))
+        remaining = self.max_uses - len(history)
+        # save to disk so this persists across restarts
+        if self.persist_path:
+            self.save_to_file(self.persist_path)
         return True, remaining
-    
+
     def get_remaining_uses(self, user_id: int) -> int:
-        """
-        Get remaining uses for a user without incrementing.
-        
-        Args:
-            user_id: Discord user ID
-            
-        Returns:
-            Number of remaining uses
-        """
-        current_time = time.time()
-        user_history = self.usage_history[user_id]
-        
-        # Count recent uses
-        recent_uses = sum(
-            1 for timestamp, _ in user_history
-            if current_time - timestamp < self.time_window
-        )
-        
-        return max(0, self.max_uses - recent_uses)
-    
+        now = time.time()
+        history = self.usage_history[user_id]
+        recent = sum(1 for ts, _ in history if now - ts < self.time_window)
+        return max(0, self.max_uses - recent)
+
     def reset_user(self, user_id: int) -> None:
-        """
-        Reset rate limit for a specific user.
-        
-        Args:
-            user_id: Discord user ID
-        """
         if user_id in self.usage_history:
             del self.usage_history[user_id]
-    
+
     def cleanup_old_entries(self) -> None:
-        """
-        Clean up old entries to prevent memory bloat.
-        Should be called periodically.
-        """
-        current_time = time.time()
-        
+        """prune stale entries so memory doesn't grow forever"""
+        now = time.time()
         for user_id in list(self.usage_history.keys()):
-            user_history = self.usage_history[user_id]
-            user_history[:] = [
-                (timestamp, cmd) for timestamp, cmd in user_history
-                if current_time - timestamp < self.time_window
-            ]
-            
-            # Remove empty entries
-            if not user_history:
+            history = self.usage_history[user_id]
+            history[:] = [(ts, cmd) for ts, cmd in history if now - ts < self.time_window]
+            if not history:
                 del self.usage_history[user_id]
+
+    def save_to_file(self, path: str) -> None:
+        """write usage history to disk so limits survive a bot restart"""
+        try:
+            # convert keys to strings for JSON, and list of [ts, cmd] pairs
+            data = {
+                str(uid): [[ts, cmd] for ts, cmd in entries]
+                for uid, entries in self.usage_history.items()
+            }
+            tmp = path + ".tmp"
+            with open(tmp, 'w', encoding='utf-8') as f:
+                json.dump(data, f)
+            os.replace(tmp, path)
+        except Exception as e:
+            logger.error(f"rate limiter save failed: {e}")
+
+    def load_from_file(self, path: str) -> None:
+        """load usage history from disk on startup"""
+        if not os.path.exists(path):
+            return
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            now = time.time()
+            for uid_str, entries in data.items():
+                uid = int(uid_str)
+                # only restore entries that are still within the window
+                valid = [(ts, cmd) for ts, cmd in entries if now - ts < self.time_window]
+                if valid:
+                    self.usage_history[uid] = valid
+            logger.info(f"rate limit history loaded from {path}")
+        except Exception as e:
+            logger.error(f"rate limiter load failed: {e}")
 
 
 class CommandCooldown:
-    """
-    Individual command cooldown tracker.
-    
-    Tracks cooldowns per user per command.
-    """
-    
+    """per-command cooldown for a single user — simpler than RateLimiter"""
+
     def __init__(self, cooldown_seconds: int = 10):
-        """
-        Initialize cooldown tracker.
-        
-        Args:
-            cooldown_seconds: Cooldown duration in seconds
-        """
         self.cooldown_seconds = cooldown_seconds
-        # Structure: {(user_id, command_name): timestamp}
-        self.cooldowns: Dict[Tuple[int, str], float] = {}
-    
-    def check_cooldown(self, user_id: int, command_name: str) -> Tuple[bool, int]:
-        """
-        Check if command is on cooldown for user.
-        
-        Args:
-            user_id: Discord user ID
-            command_name: Name of the command
-            
-        Returns:
-            Tuple of (is_ready: bool, retry_after: int)
-        """
+        # {(user_id, command_name): timestamp}
+        self.cooldowns: dict = {}
+
+    def check_cooldown(self, user_id: int, command_name: str) -> tuple:
+        """returns (ready: bool, retry_after: int)"""
         key = (user_id, command_name)
-        current_time = time.time()
-        
+        now = time.time()
+
         if key in self.cooldowns:
-            time_passed = current_time - self.cooldowns[key]
-            if time_passed < self.cooldown_seconds:
-                retry_after = int(self.cooldown_seconds - time_passed) + 1
+            elapsed = now - self.cooldowns[key]
+            if elapsed < self.cooldown_seconds:
+                retry_after = int(self.cooldown_seconds - elapsed) + 1
                 return False, retry_after
-        
-        # Set cooldown
-        self.cooldowns[key] = current_time
+
+        self.cooldowns[key] = now
         return True, 0
-    
+
     def reset_cooldown(self, user_id: int, command_name: str) -> None:
-        """
-        Reset cooldown for specific user and command.
-        
-        Args:
-            user_id: Discord user ID
-            command_name: Name of the command
-        """
         key = (user_id, command_name)
         if key in self.cooldowns:
             del self.cooldowns[key]
-    
+
     def cleanup_old_cooldowns(self) -> None:
-        """
-        Clean up expired cooldowns to prevent memory bloat.
-        """
-        current_time = time.time()
-        
-        expired_keys = [
-            key for key, timestamp in self.cooldowns.items()
-            if current_time - timestamp >= self.cooldown_seconds
+        now = time.time()
+        expired = [
+            key for key, ts in self.cooldowns.items()
+            if now - ts >= self.cooldown_seconds
         ]
-        
-        for key in expired_keys:
+        for key in expired:
             del self.cooldowns[key]

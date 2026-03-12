@@ -1,6 +1,8 @@
 """REST API — runs in the same event loop as the bot, shares BotDatabase directly.
 
-auth: X-API-Key header (value from API_KEY in .env)
+Auth: X-API-Key header (value from API_KEY in .env). If API_KEY is not set,
+all requests are allowed but a warning is logged on startup.
+
 docs: /docs  /redoc
 """
 
@@ -26,6 +28,25 @@ app = FastAPI(
 )
 
 
+@app.middleware("http")
+async def check_api_key(request: Request, call_next):
+    # skip auth for health check so monitoring tools don't need a key
+    if request.url.path in ("/health", "/"):
+        return await call_next(request)
+
+    expected_key = os.getenv("API_KEY")
+    if not expected_key:
+        # no key configured — allow everything but this is a security risk
+        return await call_next(request)
+
+    provided_key = request.headers.get("X-API-Key")
+    if provided_key != expected_key:
+        return JSONResponse(
+            {"detail": "Invalid or missing API key. Set X-API-Key header."},
+            status_code=403
+        )
+
+    return await call_next(request)
 
 
 # response models
@@ -50,7 +71,6 @@ class LeaderboardEntry(BaseModel):
     roblox_username: str
     ep: int
     discord_user_id: Optional[int]
-
 
 
 def _to_ep_record(raw: dict) -> EPRecord:
@@ -78,7 +98,6 @@ async def root():
             "GET /users?page=1&per_page=50",
             "GET /users/leaderboard?limit=10",
             "GET /health",
-            "GET /",
         ],
     }
 
@@ -94,17 +113,8 @@ async def health(request: Request):
     }
 
 
-@app.get(
-    "/user/{roblox_user_id}/ep",
-    response_model=EPRecord,
-    summary="EP record by Roblox user ID",
-)
+@app.get("/user/{roblox_user_id}/ep", response_model=EPRecord)
 async def get_user_ep_by_id(roblox_user_id: int, request: Request):
-    """
-    Return the EP record for a specific Roblox user ID.
-
-        GET /user/296030103/ep
-    """
     db = request.app.state.database
     record = await db.get_ep_record(roblox_user_id)
     if not record:
@@ -115,17 +125,8 @@ async def get_user_ep_by_id(roblox_user_id: int, request: Request):
     return _to_ep_record(record)
 
 
-@app.get(
-    "/user/username/{roblox_username}/ep",
-    response_model=EPRecord,
-    summary="EP record by Roblox username",
-)
+@app.get("/user/username/{roblox_username}/ep", response_model=EPRecord)
 async def get_user_ep_by_username(roblox_username: str, request: Request):
-    """
-    Return the EP record for a specific Roblox username (case-insensitive).
-
-        GET /user/username/PlayerName/ep
-    """
     db = request.app.state.database
     record = await db.get_ep_record_by_username(roblox_username)
     if not record:
@@ -136,21 +137,12 @@ async def get_user_ep_by_username(roblox_username: str, request: Request):
     return _to_ep_record(record)
 
 
-@app.get(
-    "/users",
-    response_model=PaginatedUsers,
-    summary="All EP records (paginated)",
-)
+@app.get("/users", response_model=PaginatedUsers)
 async def list_users(
     request: Request,
     page: int = Query(1, ge=1, description="Page number (1-based)"),
-    per_page: int = Query(50, ge=1, le=200, description="Results per page"),
+    per_page: int = Query(50, ge=1, le=100, description="Results per page (max 100)"),
 ):
-    """
-    Return all EP records, sorted by EP descending, with pagination.
-
-        GET /users?page=1&per_page=50
-    """
     db = request.app.state.database
     all_records = await db.get_all_ep_records()
     all_records.sort(key=lambda r: r["ep"], reverse=True)
@@ -158,30 +150,20 @@ async def list_users(
     total = len(all_records)
     start = (page - 1) * per_page
     end = start + per_page
-    page_records = all_records[start:end]
 
     return PaginatedUsers(
         total=total,
         page=page,
         per_page=per_page,
-        results=[_to_ep_record(r) for r in page_records],
+        results=[_to_ep_record(r) for r in all_records[start:end]],
     )
 
 
-@app.get(
-    "/users/leaderboard",
-    response_model=list[LeaderboardEntry],
-    summary="EP leaderboard — top N",
-)
+@app.get("/users/leaderboard", response_model=list[LeaderboardEntry])
 async def leaderboard(
     request: Request,
     limit: int = Query(10, ge=1, le=100, description="Number of entries to return"),
 ):
-    """
-    Return the top N members ranked by EP (highest first).
-
-        GET /users/leaderboard?limit=10
-    """
     db = request.app.state.database
     all_records = await db.get_all_ep_records()
     all_records.sort(key=lambda r: r["ep"], reverse=True)
@@ -202,6 +184,13 @@ async def start_api(database) -> None:
     """attach db to app and start uvicorn — call with asyncio.create_task()"""
     app.state.database = database
 
+    api_key = os.getenv("API_KEY")
+    if not api_key:
+        logger.warning(
+            "API_KEY is not set — the EP API is open to anyone who can reach the port. "
+            "Set API_KEY in .env to require authentication."
+        )
+
     host = os.getenv("API_HOST", "0.0.0.0")
     port = int(os.getenv("API_PORT", 8080))
 
@@ -209,12 +198,11 @@ async def start_api(database) -> None:
         app,
         host=host,
         port=port,
-        log_level="warning",      # avoid flooding the bot log
+        log_level="warning",
         access_log=False,
     )
     server = uvicorn.Server(config)
-
-    server.install_signal_handlers = lambda: None  # keep main.py signal handlers
+    server.install_signal_handlers = lambda: None
 
     logger.info(f"EP API starting on http://{host}:{port}")
     await server.serve()

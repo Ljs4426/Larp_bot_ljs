@@ -275,6 +275,36 @@ class RobloxAPICache:
             logger.error(f"Error looking up user ID for {username}: {e}")
         return None
 
+    async def get_username_by_id(self, user_id: int) -> str | None:
+        """look up a Roblox username by user ID"""
+        cache_key = f"username_{user_id}"
+        cached = self._get_from_cache(cache_key)
+        if cached:
+            return cached
+
+        data = await self._fetch_with_retry(f"https://users.roblox.com/v1/users/{user_id}")
+        if data and "name" in data:
+            self._set_cache(cache_key, data["name"])
+            return data["name"]
+        return None
+
+    async def get_user_description(self, user_id: int) -> str | None:
+        """fetch the live profile description — never cached, we need the latest for verification"""
+        await self._ensure_session()
+        try:
+            url = f"https://users.roblox.com/v1/users/{user_id}"
+            async with self.session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                if resp.status == 200:
+                    data = await resp.json()
+                    return data.get("description", "")
+                else:
+                    logger.error(f"Roblox profile fetch returned {resp.status} for user {user_id}")
+        except asyncio.TimeoutError:
+            logger.error(f"timeout fetching Roblox profile for user {user_id}")
+        except Exception as e:
+            logger.error(f"error fetching Roblox profile for user {user_id}: {e}")
+        return None
+
     def clear_cache(self):
         """Clear all cached entries."""
         self.cache.clear()

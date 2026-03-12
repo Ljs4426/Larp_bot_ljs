@@ -47,6 +47,11 @@ class TaskScheduler:
             id='cleanup_rate_limiter', replace_existing=True
         )
         self.scheduler.add_job(
+            self.cleanup_expired_verifications,
+            IntervalTrigger(minutes=15),
+            id='cleanup_expired_verifications', replace_existing=True
+        )
+        self.scheduler.add_job(
             self.sync_ep_records,
             IntervalTrigger(hours=ep_sync_hours),
             id='sync_ep_records', replace_existing=True
@@ -192,6 +197,12 @@ class TaskScheduler:
             await self.database.cleanup_old_data(days=90)
         except Exception as e:
             logger.error(f"cleanup_old_data error: {e}")
+
+    async def cleanup_expired_verifications(self):
+        try:
+            await self.database.cleanup_expired_verifications()
+        except Exception as e:
+            logger.error(f"cleanup_expired_verifications error: {e}")
 
     async def cleanup_rate_limiter(self):
         try:

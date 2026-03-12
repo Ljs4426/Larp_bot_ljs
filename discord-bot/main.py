@@ -91,6 +91,7 @@ class DiscordBot(commands.Bot):
             'cogs.log':         os.getenv('ENABLE_LOG',         'true').lower() == 'true',
             'cogs.report':      os.getenv('ENABLE_REPORT',      'true').lower() == 'true',
             'cogs.profile':     True,
+            'cogs.verify':      os.getenv('ENABLE_VERIFY',      'true').lower() == 'true',
             'cogs.backup':      os.getenv('ENABLE_BACKUP',      'true').lower() == 'true',
         }
 

@@ -51,6 +51,7 @@ class BotDatabase:
             "event_log": [],
             "report_usage": [],
             "ep_audit_log": [],
+            "pending_verifications": [],
         }
         self._ensure_file_exists()
 
@@ -427,6 +428,84 @@ class BotDatabase:
             if e["discord_user_id"] == discord_user_id
             and datetime.fromisoformat(e["used_at"]) >= since
         )
+
+    # Roblox verification tokens
+
+    async def add_pending_verification(
+        self,
+        discord_user_id: int,
+        roblox_user_id: int,
+        roblox_username: str,
+        token: str,
+        expires_in_minutes: int = 15,
+    ) -> dict:
+        # remove any existing pending token for this user first — one at a time
+        self.data["pending_verifications"] = [
+            v for v in self.data["pending_verifications"]
+            if v["discord_user_id"] != discord_user_id
+        ]
+        from datetime import timedelta
+        now = datetime.now(timezone.utc)
+        expires_at = now + timedelta(minutes=expires_in_minutes)
+
+        entry = {
+            "discord_user_id": discord_user_id,
+            "roblox_user_id": roblox_user_id,
+            "roblox_username": roblox_username,
+            "token": token,
+            "created_at": now.isoformat(),
+            "expires_at": expires_at.isoformat(),
+        }
+        self.data["pending_verifications"].append(entry)
+        await self.save()
+        logger.info(f"verification token issued for discord {discord_user_id} → roblox {roblox_username}")
+        return entry
+
+    async def get_pending_verification(self, discord_user_id: int) -> Optional[dict]:
+        """return the pending token for a user if it hasn't expired yet"""
+        now = datetime.now(timezone.utc)
+        for v in self.data["pending_verifications"]:
+            if v["discord_user_id"] == discord_user_id:
+                if datetime.fromisoformat(v["expires_at"]) > now:
+                    return v
+                # found but expired — leave cleanup to the scheduler
+        return None
+
+    async def remove_pending_verification(self, discord_user_id: int) -> None:
+        self.data["pending_verifications"] = [
+            v for v in self.data["pending_verifications"]
+            if v["discord_user_id"] != discord_user_id
+        ]
+        await self.save()
+
+    async def cleanup_expired_verifications(self) -> int:
+        """delete expired tokens — called by the scheduler"""
+        now = datetime.now(timezone.utc)
+        before = len(self.data["pending_verifications"])
+        self.data["pending_verifications"] = [
+            v for v in self.data["pending_verifications"]
+            if datetime.fromisoformat(v["expires_at"]) > now
+        ]
+        removed = before - len(self.data["pending_verifications"])
+        if removed:
+            await self.save()
+            logger.info(f"cleaned up {removed} expired verification token(s)")
+        return removed
+
+    async def link_discord_to_roblox(
+        self, discord_user_id: int, roblox_user_id: int, roblox_username: str
+    ) -> dict:
+        """set discord_user_id on the EP record — create the record if it doesn't exist yet"""
+        for r in self.data["ep_records"]:
+            if r["roblox_user_id"] == roblox_user_id:
+                r["discord_user_id"] = discord_user_id
+                r["last_updated"] = datetime.now(timezone.utc).isoformat()
+                await self.save()
+                logger.info(f"linked discord {discord_user_id} to roblox {roblox_username}")
+                return r
+        # no EP record yet — create one so the link exists when they join the group
+        logger.info(f"no EP record for {roblox_username} — creating one during verification")
+        return await self.add_ep_record(roblox_username, roblox_user_id, discord_user_id)
 
     async def sync_ep_records(self, group_members: List[dict]) -> tuple:
         """sync ep_records against live roblox group — adds new, removes departed"""

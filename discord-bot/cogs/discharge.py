@@ -97,7 +97,7 @@ class DischargeButtons(discord.ui.View):
             )
             
             # Fetch Roblox data
-            roblox_user_id = int(os.getenv('ROBLOX_USER_ID', 296030103))
+            roblox_user_id = 296030103
             roblox_group_id = int(os.getenv('ROBLOX_GROUP_ID', 5674426))
             
             footer_icon_url = await self.roblox_api.get_user_avatar(roblox_user_id)
@@ -388,7 +388,7 @@ class Discharge(commands.Cog):
                 return
             
             # Fetch Roblox data
-            roblox_user_id = int(os.getenv('ROBLOX_USER_ID', 296030103))
+            roblox_user_id = 296030103
             roblox_group_id = int(os.getenv('ROBLOX_GROUP_ID', 5674426))
             discharge_ping_role_id = int(os.getenv('DISCHARGE_PING_ROLE_ID', 0))
             

@@ -20,13 +20,8 @@ def get_embed_color() -> int:
 
 
 def get_footer_text() -> str:
-    """
-    Get footer text from environment variable.
-    
-    Returns:
-        Footer text string
-    """
-    return os.getenv('FOOTER_TEXT', '327th star corps development bot | developed by: ljs4426')
+    server_name = os.getenv('REPORT_UNIT_NAME', '327th Star Corps')
+    return f"{server_name} Assistant | Made by <@1027732252685250560>"
 
 
 async def create_request_aid_embed(

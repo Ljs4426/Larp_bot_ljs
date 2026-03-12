@@ -267,6 +267,15 @@ class BotDatabase:
                 return r
         return None
 
+    async def update_ep_record(self, roblox_user_id: int, fields: dict) -> Optional[dict]:
+        for r in self.data["ep_records"]:
+            if r["roblox_user_id"] == roblox_user_id:
+                r.update(fields)
+                r["last_updated"] = datetime.now(timezone.utc).isoformat()
+                await self.save()
+                return r
+        return None
+
     async def remove_ep_record(self, roblox_user_id: int) -> Optional[dict]:
         for i, r in enumerate(self.data["ep_records"]):
             if r["roblox_user_id"] == roblox_user_id:

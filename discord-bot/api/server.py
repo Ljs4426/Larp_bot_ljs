@@ -9,7 +9,7 @@ docs: /docs  /redoc
 import os
 import logging
 from datetime import datetime, timezone
-from typing import Optional
+from typing import List, Optional
 
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request, Query
@@ -97,6 +97,9 @@ async def root():
             "GET /user/username/{roblox_username}/ep",
             "GET /users?page=1&per_page=50",
             "GET /users/leaderboard?limit=10",
+            "GET /events/week",
+            "GET /events/week/summary",
+            "GET /events?page=1&per_page=50&since=<ISO>&until=<ISO>",
             "GET /health",
         ],
     }
@@ -178,6 +181,122 @@ async def leaderboard(
         )
         for idx, r in enumerate(all_records[:limit])
     ]
+
+
+# event models
+
+class EventEntry(BaseModel):
+    event_type: str
+    ep_awarded: int
+    participant_count: int
+    participants: List[str]
+    not_found: List[str]
+    host_discord_name: str
+    logged_at: str
+
+class PaginatedEvents(BaseModel):
+    total: int
+    page: int
+    per_page: int
+    results: List[EventEntry]
+
+class EventSummary(BaseModel):
+    week_start: str
+    week_end: str
+    total_events: int
+    total_ep: int
+    unique_members: int
+    events_by_type: dict
+
+
+def _to_event_entry(raw: dict) -> EventEntry:
+    participants = raw.get("participants", [])
+    return EventEntry(
+        event_type=raw.get("event_type", ""),
+        ep_awarded=raw.get("ep_awarded", 0),
+        participant_count=len(participants),
+        participants=participants,
+        not_found=raw.get("not_found", []),
+        host_discord_name=raw.get("host_discord_name", ""),
+        logged_at=raw.get("logged_at", ""),
+    )
+
+
+@app.get("/events/week", response_model=List[EventEntry])
+async def events_this_week(request: Request):
+    """return all events logged in the current week (sunday 19:00 UTC boundary)"""
+    from utils.week import current_week_start, current_week_end
+    now = datetime.now(timezone.utc)
+    week_start = current_week_start(now)
+    week_end   = current_week_end(now)
+    db = request.app.state.database
+    events = await db.get_events_in_range(week_start, week_end)
+    events.sort(key=lambda e: e["logged_at"], reverse=True)
+    return [_to_event_entry(e) for e in events]
+
+
+@app.get("/events/week/summary", response_model=EventSummary)
+async def events_week_summary(request: Request):
+    """totals and breakdowns for the current week"""
+    from utils.week import current_week_start, current_week_end
+    from collections import defaultdict
+    now = datetime.now(timezone.utc)
+    week_start = current_week_start(now)
+    week_end   = current_week_end(now)
+    db = request.app.state.database
+    events = await db.get_events_in_range(week_start, week_end)
+
+    total_ep = sum(e["ep_awarded"] * len(e.get("participants", [])) for e in events)
+    unique_members = len({p for e in events for p in e.get("participants", [])})
+    by_type: dict = defaultdict(int)
+    for e in events:
+        by_type[e["event_type"]] += 1
+
+    return EventSummary(
+        week_start=week_start.isoformat(),
+        week_end=week_end.isoformat(),
+        total_events=len(events),
+        total_ep=total_ep,
+        unique_members=unique_members,
+        events_by_type=dict(by_type),
+    )
+
+
+@app.get("/events", response_model=PaginatedEvents)
+async def list_events(
+    request: Request,
+    page: int = Query(1, ge=1, description="Page number (1-based)"),
+    per_page: int = Query(50, ge=1, le=100, description="Results per page (max 100)"),
+    since: Optional[str] = Query(None, description="Filter from this ISO datetime (inclusive)"),
+    until: Optional[str] = Query(None, description="Filter to this ISO datetime (exclusive)"),
+):
+    """all events, newest first, with optional date range filter"""
+    db = request.app.state.database
+    events = await db.get_all_event_log_entries()
+
+    if since:
+        try:
+            since_dt = datetime.fromisoformat(since).replace(tzinfo=timezone.utc) if since.endswith('Z') or '+' not in since else datetime.fromisoformat(since)
+            events = [e for e in events if datetime.fromisoformat(e["logged_at"]) >= since_dt]
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"Invalid 'since' datetime: {since}")
+
+    if until:
+        try:
+            until_dt = datetime.fromisoformat(until).replace(tzinfo=timezone.utc) if until.endswith('Z') or '+' not in until else datetime.fromisoformat(until)
+            events = [e for e in events if datetime.fromisoformat(e["logged_at"]) < until_dt]
+        except ValueError:
+            raise HTTPException(status_code=400, detail=f"Invalid 'until' datetime: {until}")
+
+    events.sort(key=lambda e: e["logged_at"], reverse=True)
+    total = len(events)
+    start = (page - 1) * per_page
+    return PaginatedEvents(
+        total=total,
+        page=page,
+        per_page=per_page,
+        results=[_to_event_entry(e) for e in events[start:start + per_page]],
+    )
 
 
 async def start_api(database) -> None:

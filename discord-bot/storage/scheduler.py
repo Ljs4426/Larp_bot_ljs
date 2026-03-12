@@ -12,7 +12,7 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.interval import IntervalTrigger
 
 from utils.week import current_week_start
-from utils.sheets import sync_ep_to_sheet
+from utils.sheets import sync_ep_to_sheet, sync_events_to_sheet
 
 logger = logging.getLogger(__name__)
 
@@ -266,7 +266,13 @@ class TaskScheduler:
             ep_records = await self.database.get_all_ep_records()
             ok = await sync_ep_to_sheet(ep_records)
             if not ok:
-                logger.warning("sheets sync returned False — check GOOGLE_SHEETS_CREDS_FILE / GOOGLE_SHEET_ID")
+                logger.warning("sheets EP sync returned False — check GOOGLE_SHEETS_CREDS_FILE / GOOGLE_SHEET_ID")
+
+            # also sync the event log to its own tab
+            events = await self.database.get_all_event_log_entries()
+            ok2 = await sync_events_to_sheet(events)
+            if not ok2:
+                logger.warning("sheets event sync returned False")
         except Exception as e:
             logger.error(f"sync_sheets error: {e}")
 

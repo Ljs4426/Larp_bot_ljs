@@ -171,6 +171,23 @@ class Report(commands.Cog):
             f"week={format_week_range(ws)}"
         )
 
+        log_channel_id = int(os.getenv("LOG_CHANNEL_ID", 0))
+        log_channel = self.bot.get_channel(log_channel_id)
+        if log_channel:
+            log_embed = discord.Embed(
+                title="Report Generated",
+                color=discord.Color.blurple(),
+                timestamp=datetime.now(timezone.utc),
+            )
+            log_embed.add_field(name="Staff",  value=interaction.user.mention, inline=True)
+            log_embed.add_field(name="Period", value=period_str,               inline=True)
+            log_embed.add_field(name="Events", value=str(len(events)),         inline=True)
+            log_embed.add_field(name="EP",     value=str(total_ep),            inline=True)
+            try:
+                await log_channel.send(embed=log_embed)
+            except Exception as e:
+                logger.error(f"failed to send report log: {e}")
+
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Report(bot, bot.database))

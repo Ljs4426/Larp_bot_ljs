@@ -1,26 +1,26 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+from datetime import datetime, timezone
 import os
 import logging
 
 logger = logging.getLogger(__name__)
 
-# default nick format — override with NICKNAME_FORMAT in .env
-# available placeholders: {username}, {timezone}
 _DEFAULT_FORMAT = "{username} | {timezone}"
 
 
-def _build_nick(username: str, timezone: str) -> str:
+def _build_nick(username: str, tz: str) -> str:
     fmt = os.getenv("NICKNAME_FORMAT", _DEFAULT_FORMAT)
-    return fmt.format(username=username, timezone=timezone.upper())
+    return fmt.format(username=username, timezone=tz.upper())
 
 
 class Verify(commands.Cog):
 
-    def __init__(self, bot: commands.Bot, database):
+    def __init__(self, bot: commands.Bot, database, command_logger):
         self.bot = bot
         self.database = database
+        self.command_logger = command_logger
 
     @app_commands.command(name="verify", description="Link your Roblox account to Discord")
     @app_commands.describe(
@@ -37,6 +37,11 @@ class Verify(commands.Cog):
                 f"❌ **{roblox_username}** isn't in the roster. Contact a staff member if you think this is wrong.",
                 ephemeral=True,
             )
+            await self.command_logger(
+                interaction, "verify",
+                {"roblox_username": roblox_username, "timezone": timezone},
+                success=False, error="not in roster"
+            )
             return
 
         existing_discord_id = record.get("discord_user_id")
@@ -45,10 +50,14 @@ class Verify(commands.Cog):
                 "❌ That Roblox account is already linked to a different Discord account.",
                 ephemeral=True,
             )
+            await self.command_logger(
+                interaction, "verify",
+                {"roblox_username": roblox_username, "timezone": timezone},
+                success=False, error="already linked to another account"
+            )
             return
 
         if existing_discord_id == interaction.user.id:
-            # already verified — still update the nick in case timezone changed
             nick = _build_nick(roblox_username, timezone)
             try:
                 await interaction.user.edit(nick=nick)
@@ -93,8 +102,34 @@ class Verify(commands.Cog):
         )
         logger.info(f"verified {interaction.user} as {roblox_username} [{timezone.upper()}]")
 
+        # post to log channel
+        log_channel_id = int(os.getenv("LOG_CHANNEL_ID", 0))
+        log_channel = self.bot.get_channel(log_channel_id)
+        if log_channel:
+            embed = discord.Embed(
+                title="Member Verified",
+                color=discord.Color.green(),
+                timestamp=datetime.now(timezone.utc)
+            )
+            embed.add_field(name="Discord",         value=interaction.user.mention,  inline=True)
+            embed.add_field(name="Roblox Username", value=roblox_username,           inline=True)
+            embed.add_field(name="Timezone",        value=timezone.upper(),          inline=True)
+            if nick:
+                embed.add_field(name="Nickname Set", value=f"`{nick}`", inline=False)
+            if role:
+                embed.add_field(name="Role Assigned", value=role.mention, inline=False)
+            try:
+                await log_channel.send(embed=embed)
+            except Exception as e:
+                logger.error(f"failed to send verify log: {e}")
+
+        await self.command_logger(
+            interaction, "verify",
+            {"roblox_username": roblox_username, "timezone": timezone, "nickname": nick or "not set"},
+            success=True
+        )
+
 
 async def setup(bot: commands.Bot):
-    db = bot.database
-    await bot.add_cog(Verify(bot, db))
+    await bot.add_cog(Verify(bot, bot.database, bot.command_logger))
     logger.info("Verify cog loaded")

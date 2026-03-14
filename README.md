@@ -1,5 +1,7 @@
 # Larp Bot
 
+> **Note:** This README was written by Claude (Anthropic's AI). The content is accurate to the codebase but was generated automatically rather than hand-written.
+
 A Discord bot for Roblox military units. Tracks Engagement Points (EP), logs events, handles inactivity notices, discharge requests, aid requests, and links Discord accounts to Roblox accounts. Comes with a REST API so you can pull data into external tools.
 
 ---

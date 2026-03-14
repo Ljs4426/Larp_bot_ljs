@@ -5,6 +5,7 @@ import sys
 import logging
 from logging.handlers import RotatingFileHandler
 from datetime import datetime, timezone
+from pathlib import Path
 from dotenv import load_dotenv
 import asyncio
 
@@ -151,8 +152,43 @@ class DiscordBot(commands.Bot):
             f"Connected to {len(self.guilds)} server(s)"
         )
 
+        await self._send_readme_once()
+
         if self.scheduler:
             asyncio.create_task(self.scheduler.sync_ep_records())
+
+    async def _send_readme_once(self):
+        flag = Path(__file__).parent / '.readme_sent'
+        if flag.exists():
+            return
+        if not self.log_channel_id:
+            return
+        channel = self.get_channel(self.log_channel_id)
+        if not channel:
+            return
+        readme = Path(__file__).parent.parent / 'README.md'
+        if not readme.exists():
+            return
+        text = readme.read_text(encoding='utf-8')
+        # chunk into <=1990 char blocks, splitting on newlines
+        chunks = []
+        current = []
+        length = 0
+        for line in text.splitlines(keepends=True):
+            if length + len(line) > 1990 and current:
+                chunks.append(''.join(current))
+                current = []
+                length = 0
+            current.append(line)
+            length += len(line)
+        if current:
+            chunks.append(''.join(current))
+        try:
+            for chunk in chunks:
+                await channel.send(chunk)
+            flag.touch()
+        except Exception as e:
+            logger.error(f"failed to send readme: {e}")
 
     async def on_guild_join(self, guild: discord.Guild):
         logger.info(f"joined guild: {guild.name} ({guild.id})")
